@@ -3,6 +3,7 @@ package org.openmrs.module.appointmentscheduling;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
 import org.openmrs.Provider;
+import org.openmrs.web.WebUtil;
 
 import java.util.Date;
 
@@ -90,12 +91,16 @@ public class AppointmentRequest extends BaseOpenmrsData {
         this.status = status;
     }
 
+    public String sanitizeNotes(String note) {
+        return WebUtil.escapeHTML(note);
+    }
+
     public String getNotes() {
         return notes;
     }
 
     public void setNotes(String notes) {
-        this.notes = notes;
+        this.notes = sanitizeNotes(notes);
     }
 
     public Provider getRequestedBy() {
